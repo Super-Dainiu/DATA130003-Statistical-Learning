@@ -167,3 +167,91 @@
       $e_{test}=\frac{1}{N}\sum^{N}_{i=1}L(y_i,  f(x_i))$
 
       eg. L取0-1损失，$e_{test}=\frac{1}{N}\sum^{N}_{i=1}I(y_i\ne\hat{f}(x_i))$ （误差率error rate） 
+
+5. 正则化和交叉验证
+
+   1. 正则化
+
+      $min \dfrac{1}{N}\sum\limits_iL(y_i, f(x_i))+\lambda J(f)$
+
+      $\lambda$调节参数(training parameter)
+
+      $\lambda \uparrow$ 选择简单模型
+
+      核心：选择经验风险与复杂度同时较小的模型
+
+   2. 交叉验证(cross validation)
+
+      1. 数据充足
+
+         |      |
+         |-----------|
+         | 训练集(training set) |
+         | 验证集(validation set) 用于模型选择|
+         | 测试集(testing set) 用于模型评估|
+
+      2. 数据不充足
+
+         需要重复利用数据
+
+         1. 简单交叉验证 
+
+            训练 测试
+
+         2. S折交叉验证
+
+            用s-1折进行训练
+
+            在s折进行模型测试
+
+         3. 留一交叉验证(leave-one-out cross validation)
+
+            S=N （在数据缺乏时使用）
+
+6. 泛化能力
+
+   1. 泛化误差
+
+      设学习到的模型是P
+
+      $R_{exp}(f)=\int L(y-\hat{f}(x))P(x,y)\mathrm{d}x\mathrm{d}y$
+
+      期望风险
+
+   2. 泛化误差的上届
+
+      1. 是样本量N的函数，$N\uparrow$泛化误差$\rightarrow 0$
+      2. 是假设空间容量的函数，容量$\uparrow$，误差$\uparrow$
+
+   【例】（二分类问题的误差上界）
+
+   ​	$T=\{(x_1,y_1), \cdots, (x_N, y_N)\} \quad (x_i, y_i) --iid-->P(x,y)$
+
+   ​	$X\in R^p, Y\in{-1,1}$
+
+   ​	假设空间 $F={f_1,\cdot,f_d}
+
+   ​	损失函数0-1
+
+   ​	$R(f)=E[L(Y,X)]=\dfrac{1}{N}\sum\limits_i L(y_i, f(x_i))$
+
+   【Theorem 1】对于以上二分类问题，当假设空间为有限个函数的集合$F={f_1, \cdots, f_d}$时，至少以概率$1-\delta,\, 0<\delta<1$，以下不等式成立：
+   $$
+   R(f)\le \hat{R}(f)+\epsilon(d,N,\delta)
+   $$
+   其中，
+   $$
+   \epsilon(d,N,\delta)=\{\frac{1}{2N}(\log d+\log\frac{1}{\delta}\}^{\frac{1}{2}}
+   $$
+   
+
+   
+
+   PROOF
+
+   ​	Hoeffding不等式
+
+   ​	$S_n=\sum\limits^n_{i=1}X_i$，$X_i$独立$X_i\in[a_i,b_i]$，对于$\forall t>0$
+
+   ​	$P(S_n-E(S_n)\ge t)\le exp\left(\dfrac{-2t^2}{\sum\limits_{i=1}^{N}(b_i-a_i)}\right)$
+
