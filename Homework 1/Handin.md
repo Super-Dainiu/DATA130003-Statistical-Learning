@@ -1,17 +1,32 @@
 <h1><center>Homework I</center>
+<center>邵彦骏 19307110036</center>
 
-<center>邵彦骏 19307110036
 
+
+1. 通过经验风险最小化推导极大似然估计。证明模型是条件概率分布，当损失函数是对数损失函数时，经验风险最小化等价于极大似然估计。
+
+   **PROOF**
+
+      当损失函数时对数损失函数时，
+
+$$
+   R_{emp}(f)=-\frac{1}{N}\sum\limits^N_{i=1}\log(p(y|x_i,\Theta))
+$$
+   		此时的经验风险最小化等价于，
+$$
+   \mathop{argmax}\limits_\Theta \sum\limits^N_{i=1}\log(p(y|x_i,\Theta))
+$$
+   		就是极大似然估计$\mathop{argmax}\limits_\Theta\,l(\Theta)$。
 
 2. The Hoeffding's inequality: 
 
    ​									<span style="text-align: center;">$\mathbb{P}(\frac{1}{n}\sum\limits^{n}_{i=1}(Z_i-\mathbb{E}[Z_i])\ge t)\le exp(-\frac{2nt^2 }{(b-a)^2})$ </span>
 
-​	The Hoeffding's Lemma: Let $Z$ be a bounded random variable with $Z\in [a,b]$. Then
+   The Hoeffding's Lemma: Let $Z$ be a bounded random variable with $Z\in [a,b]$. Then
 
 ​											$$\mathbb{E}[exp(\lambda(Z-\mathbb{E}[Z]))]\le exp(\frac{\lambda^2(b-a)^2}{8})$$''
 
-**PROOF**: 
+​		**PROOF**
 
 ​		$$\mathbb{P}(\frac{1}{n}\sum\limits^{n}_{i=1}(Z_i-\mathbb{E}[Z_i])\ge t)=\mathbb{P}(e^{\lambda\sum\limits^{n}_{i=1}(Z_i-\mathbb{E}[Z_i])}\ge e^{\lambda nt})$$
 
@@ -28,6 +43,16 @@
 ​	Therefore, 
 
 ​									$\mathbb{P}(\frac{1}{n}\sum\limits^{n}_{i=1}(Z_i-\mathbb{E}[Z_i])\ge t)\le exp(-\frac{2nt^2 }{(b-a)^2})$
+
+3. 有监督学习的应用
+
+   1. 问题背景：在社交网络中有很多复杂的结构，但有些好友关系的建立却能够被简单地预测，这是因为它们之间总是存在相似度。一些简单的机器学习模型就能很好地预测出这些潜在关系，并且为用户推荐这些潜在好友。
+
+   2. 自变量：网络图中的边，$$x_{ij}=\mathbf{1}\{节点i与节点j有关联\}$$
+
+      因变量：网络图中可能的边，$y_{ij}=\mathbf{1}\{预测节点i与节点j有关联\}$
+
+   3. 可以通过社交网络中节点相似度的度量，作为二分类模型的输入，使用支持向量机或者朴素贝叶斯模型对两个节点之间有边（输出为1）和没有边（输出为0）进行预测。
 
 4. Please read the background and then prove the following results.
    Background:
@@ -47,7 +72,7 @@
    $$
    **PROOF**
 
-   ​	With definition, we have $y_{i}=\sum\limits_{j=1}^{n}\mathbf{A}_{ij}\cdot x_j$ and $(\dfrac{\partial \mathbf{y}}{\partial \mathbf{x}})_{ij}=\dfrac{\partial y_j}{\partial x_i}=\mathbf{A}_{ji}$. Therefore, we can infer that $\dfrac{\partial \mathbf{y}}{\partial \mathbf{x}}=\mathbf{A}^T$
+   ​	With definition, we have $y_{i}=\sum\limits_{j=1}^{n}\mathbf{A}_{ij}\cdot x_j$ and $(\dfrac{\partial \mathbf{y}}{\partial \mathbf{x}})_{ij}=\dfrac{\partial y_j}{\partial x_i}=\mathbf{A}_{ji}$. Therefore, we can infer that $\dfrac{\partial \mathbf{y}}{\partial \mathbf{x}}=\mathbf{A}^T$ 
 
    (b) Let the scalar $\alpha$ be defined by $\alpha=\mathbf{y}^{\mathrm{T}} \mathbf{A} \mathbf{x}$, where $\mathbf{y}$ is $\mathrm{m} \times 1, \mathbf{x}$ is $\mathrm{n} \times 1, \mathbf{A}$ is $\mathrm{m} \times \mathrm{n}$,
 
@@ -92,15 +117,39 @@ $$
 $$
 \frac{\partial \mathbf{A}^{-1}}{\partial \alpha}=-\mathbf{A}^{-1} \frac{\partial \mathbf{A}}{\partial \alpha} \mathbf{A}^{-1}
 $$
-首先很容易可以看出$$\frac{\partial \mathbf{A}\mathbf{B}}{\partial \alpha} = \frac{\partial \mathbf{A}}{\partial \alpha} \mathbf{B} + \mathbf{A}\frac{\partial \mathbf{B}}{\partial \alpha}, $$
+​	**PROOF**
 
-那么由$$\mathbf{A}\mathbf{A}^{-1} = \mathbf{I}_m$$
-\qquad 两边对$\alpha$求导就有：$$\frac{\partial \mathbf{A}\mathbf{A}^{-1}}{\partial \alpha} = \mathbf{0},$$
-\qquad 从而有$$\frac{\partial \mathbf{A}}{\partial \alpha} \mathbf{A}^{-1} + \mathbf{A} \frac{\partial \mathbf{A}^{-1}}{\partial \alpha} = \mathbf{0},$$
-\qquad 即$$\frac{\partial \mathbf{A}^{-1}}{\partial \alpha}=-\mathbf{A}^{-1} \frac{\partial \mathbf{A}}{\partial \alpha} \mathbf{A}^{-1}.$$
+​		First of all,  we can have 
+$$
+\frac{\partial \mathbf{A}\mathbf{B}}{\partial \alpha} = \frac{\partial \mathbf{A}}{\partial \alpha} \mathbf{B} + \mathbf{A}\frac{\partial \mathbf{B}}{\partial \alpha}
+$$
+​		Hence,
+$$
+\frac{\partial \mathbf{A}\mathbf{A}^{-1}}{\partial \alpha}=\frac{\partial \mathbf{A}}{\partial \alpha}\mathbf{A}^{-1}+\mathbf{A}\frac{\partial \mathbf{A}^{-1}}{\partial \alpha}=\frac{\partial\mathbf{I}}{\partial \alpha}=0
+$$
+
+
+​		And reorganize the equation,
+$$
+\frac{\partial \mathbf{A}^{-1}}{\partial \alpha}=-\mathbf{A}^{-1}\frac{\partial \mathbf{A}}{\partial \alpha}\mathbf{A}^{-1}
+$$
+
 
 ​	(4) Please write $\hat{a}$ as the solution of the minimization problem:
 $$
 \min _{a}\|\mathbf{X} a-\mathbf{y}\|
 $$
 where $\mathbf{X}$ is a $\mathrm{n} \times \mathrm{p}$ matrix and $\mathbf{y}$ is a $\mathrm{n} \times 1$ vector. $\mathbf{X}^{\mathrm{T}} \mathbf{X}$ is nonsingular.
+
+​	**SOLUTION**
+$$
+\min_a\|\mathbf{X}a-\mathbf{y}\|\Leftrightarrow \min_a\|\mathbf{X}a-\mathbf{y}\|^2
+$$
+​		Take derivative on the right-hand term to minimize it.
+$$
+\frac{\partial\|\mathbf{X}a-\mathbf{y}\|^2}{\partial a}=2\mathbf{X}^T(\mathbf{X}a-\mathbf{y})=0
+$$
+​		Since $\mathbf{X}^{\mathrm{T}} \mathbf{X}$ is nonsingular, we can have the optimal solution,
+$$
+a=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}\mathbf{y}
+$$

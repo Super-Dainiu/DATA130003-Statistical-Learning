@@ -128,7 +128,7 @@
 
             E~exp~(f)=E~p~{L(Y, f(X))}=$\int L(y, f(x))P(x, y)dxdy$
 
-            给定一个训练集$T-{(x_1,y_1), \cdots, (x_N, y_N)}
+            给定一个训练集$T=\{(x_1,y_1), \cdots, (x_N, y_N)\}$
 
             f(x)关于训练集的平均损失  经验风险（empirical risk）
 
@@ -229,7 +229,7 @@
 
    ​	$X\in R^p, Y\in{-1,1}$
 
-   ​	假设空间 $F={f_1,\cdot,f_d}
+   ​	假设空间 $F={f_1,\cdots,f_d}$
 
    ​	损失函数0-1
 
@@ -244,7 +244,7 @@
    \epsilon(d,N,\delta)=\{\frac{1}{2N}(\log d+\log\frac{1}{\delta}\}^{\frac{1}{2}}
    $$
    
-
+   
    
 
    PROOF
