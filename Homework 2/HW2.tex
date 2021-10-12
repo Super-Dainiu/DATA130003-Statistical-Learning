@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{rotating}   
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption2}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{extpfeil}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[subsection]{Remark}
+
+%%
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%% define new symbols
+\def\bx{\bm{x}}
+\def\bb{\bm{b}}
+\def\ba{\bm{a}}
+\def\bc{\bm{c}}
+\def\bf{\bm{f}}
+\def\by{\bm{y}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\BW{\bm{W}}
+\def\BA{\bm{A}}
+\def\bz{\bm{z}}
+\def\BZ{\bm{Z}}
+\def\BH{\bm{H}}
+\def\BL{\bm{L}}
+\def\BU{\bm{U}}
+\def\BV{\bm{V}}
+\def\BB{\bm{B}}
+\def\BC{\bm{C}}
+\def\BD{\bm{D}}
+\def\BE{\bm{E}}
+\def\BW{\bm{W}}
+\def\BQ{\bm{Q}}
+\def\BG{\bm{G}}
+\def\BA{\bm{A}}
+\def\BX{\bm{X}}
+\def\BY{\bm{Y}}
+\def\BQ{\bm{Q}}
+\def\BI{\bm{I}}
+\def\BR{\bm{R}}
+
+%% define new brackets
+\def\la{\left\langle}
+\def\ra{\right\rangle}
+\def\ln{\left\|}
+\def\rn{\right\|}
+\def\lb{\left(}
+\def\rb{\right)}
+\def\lsb{\left[}
+\def\rsb{\right]}
+\def\lcb{\left\{}
+\def\rcb{\right\}}
+
+%%
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%%
+\title{Homework II}
+\author{Name: Shao Yanjun, Number: 19307110036}
+
+
+\begin{document}
+\maketitle
+
+%------------------------------------
+\begin{abstract}
+This is Daniel's homework of  "Statistical Learning".
+\end{abstract}
+%-------------------------------------
+%=====================
+
+\paragraph{(1)}The OLS is $\hat{\beta}=\left(\mathrm{X}^{\prime} \mathrm{X}\right)^{-1} \mathrm{X}^{\prime} \mathrm{Y}$. And the likelihood function of $\beta$ is, 
+
+\begin{align*}
+	L(\beta, \sigma)=\frac{1}{(2 \pi \sigma)^{n/2}} \exp \left(-\frac{1}{2 \sigma^{2}} \varepsilon^{\top} \varepsilon\right)
+\end{align*}
+
+Since $-(\mathrm{Y}-\mathrm{X} \beta)(\mathrm{Y}-\mathrm{X} \beta) \leqslant 0, \quad \forall \mathrm{Y}-\mathrm{X} \beta \in \mathbb{R}^{n}$,
+the exponential term will be minimized by $\mathrm{Y}=\mathrm{X} \beta$.
+
+Therefore, MLE of $\beta$ can also be $\hat{\beta}=(\mathrm{X}^\prime \mathrm{X})^{-1} \mathrm{X}^{\prime} \mathrm{Y}$
+
+\paragraph{(2)} Let any linear combination of $\beta$ be $c^{\prime} \beta=c_{0} \beta_{0}+c_{1} \beta_{1}+\cdots+\operatorname{c_n} \beta_{n}$. For OLS estimator. $c^{\prime} \hat{\beta}=c^{\prime}(\mathrm{Z}^\prime \mathrm{Z})^{-1} \mathrm{Z}^{\prime} \mathrm{Y}$. Mark $a=\mathrm{Z}\left(\mathrm{Z}^\prime\mathrm{Z}\right)^{-1} c$. And for any unbiased estimator $d^{\prime} \mathrm{Y}$, such that $E(d^{\prime} \mathrm{Y})=d^{\prime} \mathrm{Z} \beta=c^{\prime} \beta$, we must have $\mathrm{Z}^{\prime} d=c$.
+
+Calculate Variance,
+\begin{align*}
+	\operatorname{Var}\left(d^{\prime} \mathrm{Y}\right)&=\sigma^{2} d^{\prime} d=\sigma^{2}(a+(d-\alpha))^{\prime}(a+(d-a))\\
+	&=\sigma^{2}\left( a^{\prime} a+2(d-a)^{\prime} a+(d-a)^{\prime}(d-a) \right)
+\end{align*} 
+
+And notice that,
+\begin{align*}
+	(d-a)^{\prime} a
+	&=\left(d-\mathrm{Z}\left(\mathrm{Z}^{\prime}\right)^{-1} c\right)^{\prime}\left(\mathrm{Z}\left(\mathrm{Z}^{\prime}\mathrm{Z}\right)^{-1} c\right)\\
+	&=c^{\prime}\left(\left(\mathrm{Z}^{\prime} \mathrm{Z}\right)^{-1}-(\mathrm{Z}^\prime \mathrm{Z})^{-1}\right) c=0
+\end{align*}
+
+Therefore, $\operatorname{Var}\left(d^{\prime} \mathrm{Y}\right) \geqslant \sigma^{2} a^{\prime} a=\operatorname{Var}\left(c^{\prime} \hat{\beta}\right)$
+\paragraph{(3)} $E\left(n-\hat{r}^{\hat{2}}\right)=E(\hat{z}(y-\hat{1})=E(\varepsilon(y+y))$
+$\left.=E\left(y^{\prime} y\right)-E\left(\hat{y}^{\prime} \hat{y}\right)=\sum_{i=1}^{n} E\left(y_{i}^{2}\right)-E\left(\hat{y}_{i}^{2}\right)+n\left(E_{c} y_{i}\right)\right)^{2}-n\left(E\left(\hat{y}_{i}\right)^{2}\right.$
+$=\sum_{i=1}^{n} \operatorname{Var}\left(Y_{i}\right)-\operatorname{Var}\left(\hat{Y}_{i}\right)$
+$=n \sigma^{2}-r \sigma^{2}=(n-r) \sigma^{2}$
+$\because \hat{Y}_{r}=e_{i}^{\prime} \hat{Y}=e^{\prime} Z\left(z^{\prime} z^{-1}\right)^{\prime} Y \sim N\left(\beta_{i},(H)^{-1} \cdot \sigma^{2}\right), \sum_{i=1}^{n}(H)_{i i}^{-1}=\operatorname{tr}\left(H^{-1}\right)=r$
+$\therefore E\left(\hat{\sigma}^{2}\right)=\sigma^{2}$
+%-------------------------------------
+%=====================
+\end{document}
